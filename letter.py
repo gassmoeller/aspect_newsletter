@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 
 def get_headers():
     # Create the header of the message (a plain-text and an HTML version).
-    text_header = "Hello everyone!\n\nThis is the biweekly ASPECT newsletter #" + str(number) + ".\n"
+    text_header = "Hello everyone!\n\nThis is the biweekly ASPECT newsletter #" + str(number) + ".\n\n"
     html_header = """\
     <html>
       <head></head>
@@ -22,13 +22,13 @@ def get_headers():
 
 def get_pull_request_headers():
     # Create the header of the pull request part of the message (a plain-text and an HTML version).
-    text_header = "\nBelow you find a list of recently merged features and links to the discussions about them:\n\n"
-    html_header = "<br>Below you find a list of recently merged features and links to the discussions about them: <br> <br>\n"
+    text_header = "\n## Recently merged features:\n\n"
+    html_header = "<br>Recently merged features:<br><br>\n"
     return html_header,text_header
 
 def get_issue_headers():
     # Create the header of the pull request part of the message (a plain-text and an HTML version).
-    text_header = "\nAnd this is a list of recently opened or closed discussions:\n\n"
+    text_header = "\n## Recently opened or closed discussions:\n\n"
     html_header = "<br>And this is a list of recently opened or closed discussions:<br><br>\n"
     return html_header,text_header
 
@@ -90,7 +90,7 @@ def traverse_prs(issues):
                 if (now - merge_time < datetime.timedelta(14)):
                     html_pr = '<a href="' + pr['_links']['html']['href'] + '">#' + str(pr['number']) + '</a>: ' + pr['title'] + ' (' 
                     html_pr += '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>)<br>\n'
-                    text_pr =  '#' + str(pr['number']) + ': ' + pr['title'] + ' (' + pr['user']['login'] + ') ' + pr['_links']['html']['href'] + '\n'
+                    text_pr =  '#' + str(pr['number']) + ': ' + pr['title'] + ' (' + pr['user']['login'] + ') ' + pr['_links']['html']['href'] + '\n\n'
                     pull_requests_body_html = pull_requests_body_html + html_pr
                     pull_requests_body_text = pull_requests_body_text + text_pr
     return pull_requests_body_html, pull_requests_body_text
@@ -117,7 +117,7 @@ def traverse_issues(issues):
                     status_change += "closed"
                 status_change += ")"
                 html_pr = '<a href="' + issue['html_url'] + '">#' + str(issue['number']) + '</a> ' + issue['title'] + ' ' + status_change + '<br>\n'
-                text_pr =  '#' + str(issue['number']) + ' ' + issue['title'] + ' ' + status_change + ' ' + issue['html_url'] + '\n'
+                text_pr =  '#' + str(issue['number']) + ': ' + issue['title'] + ' ' + status_change + ' ' + issue['html_url'] + '\n\n'
                 issues_body_html = issues_body_html + html_pr
                 issues_body_text = issues_body_text + text_pr
     return issues_body_html, issues_body_text
