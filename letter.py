@@ -215,6 +215,6 @@ if (pull_requests_body_html != "") or (issues_body_html != ""):
     
     send_mail(html_mail,text_mail)
     
-    numberfile = open("number","w")
+    numberfile = open(path+"/number","w")
     numberfile.write(str(number+1))
     numberfile.close()
