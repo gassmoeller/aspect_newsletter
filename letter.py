@@ -11,25 +11,25 @@ from email.Utils import formatdate
 
 def get_headers():
     # Create the header of the message (a plain-text and an HTML version).
-    text_header = "Hello everyone!\n\nThis is the biweekly ASPECT newsletter #" + str(number) + ". It automatically reports recently merged features and discussions about the ASPECT mantle convection code.\n\n"
+    text_header = "Hello everyone!\n\nThis is the biweekly ASPECT newsletter #" + str(number) + ".\nIt automatically reports recently merged features and discussions about the ASPECT mantle convection code.\n\n"
     html_header = """\
     <html>
       <head></head>
       <body>
         <p>Hello everyone!<br><br>
-           This is the biweekly ASPECT newsletter #""" + str(number) + ". It automatically reports recently merged features and discussions about the ASPECT mantle convection code.<br>"
+           This is the biweekly ASPECT newsletter #""" + str(number) + ".<br>It automatically reports recently merged features and discussions about the ASPECT mantle convection code.<br>"
     
     return html_header,text_header
 
 def get_pull_request_headers():
     # Create the header of the pull request part of the message (a plain-text and an HTML version).
-    text_header = "\n## Recently merged features:\n\n"
-    html_header = "<br>Recently merged features:<br><br>\n"
+    text_header = "\n## Below you find a list of recently merged features:\n\n"
+    html_header = "<br>Below you find a list of recently merged features:<br><br>\n"
     return html_header,text_header
 
 def get_issue_headers():
     # Create the header of the pull request part of the message (a plain-text and an HTML version).
-    text_header = "\n## Recently opened or closed discussions:\n\n"
+    text_header = "\n## And this is a list of recently opened or closed discussions:\n\n"
     html_header = "<br>And this is a list of recently opened or closed discussions:<br><br>\n"
     return html_header,text_header
 
