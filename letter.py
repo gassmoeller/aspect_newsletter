@@ -11,13 +11,13 @@ from email.Utils import formatdate
 
 def get_headers():
     # Create the header of the message (a plain-text and an HTML version).
-    text_header = "Hello everyone!\n\nThis is the biweekly ASPECT newsletter #" + str(number) + ".\n\n"
+    text_header = "Hello everyone!\n\nThis is the biweekly ASPECT newsletter #" + str(number) + ". It automatically reports recently merged features and discussions about the ASPECT mantle convection code.\n\n"
     html_header = """\
     <html>
       <head></head>
       <body>
         <p>Hello everyone!<br><br>
-           This is the biweekly ASPECT newsletter #""" + str(number) + ".<br>"
+           This is the biweekly ASPECT newsletter #""" + str(number) + ". It automatically reports recently merged features and discussions about the ASPECT mantle convection code.<br>"
     
     return html_header,text_header
 
