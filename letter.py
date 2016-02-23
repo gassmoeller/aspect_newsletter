@@ -7,6 +7,7 @@ import smtplib
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.Utils import formatdate
 
 def get_headers():
     # Create the header of the message (a plain-text and an HTML version).
@@ -55,7 +56,7 @@ def send_mail(html_mail,text_mail):
     msg['Subject'] = "ASPECT Newsletter #" + str(number)
     msg['From'] = me
     msg['To'] = you
-    msg['Date'] = now.isoformat()
+    msg['Date'] = formatdate()
     
     # Record the MIME types of both parts - text/plain and text/html.
     part1 = MIMEText(text_mail, 'plain')
