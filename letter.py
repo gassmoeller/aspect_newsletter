@@ -1,5 +1,6 @@
 #!/bin/python
 
+import os
 import requests
 import datetime
 import smtplib
@@ -164,14 +165,16 @@ def handle_issues(request):
 
     return issues_body_html,issues_body_text
 
+path = os.path.dirname(os.path.abspath(__file__))
+
 # Access token for Github. Do not distribute although it has no access
-tokenfile = open("token","r")
+tokenfile = open(path+"/token","r")
 token = tokenfile.readline()
 # Remove trailing newline character
 token = token[:-1]
 tokenfile.close()
 
-numberfile = open("number","r")
+numberfile = open(path+"/number","r")
 number = int(numberfile.readline())
 numberfile.close()
 
@@ -207,9 +210,9 @@ if (pull_requests_body_html != "") or (issues_body_html != ""):
     html_mail += html_footer
     text_mail += text_footer  
     
-    print text_mail
+    #print text_mail
     
-    #send_mail(html_mail,text_mail)
+    send_mail(html_mail,text_mail)
     
     numberfile = open("number","w")
     numberfile.write(str(number+1))
