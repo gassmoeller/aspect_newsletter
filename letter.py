@@ -141,7 +141,7 @@ def handle_pull_requests(request):
     next_request = request
     while next_request.links.has_key('next'):
         next_request = requests.get(request.links['next']['url'],auth=('token',token))
-        pull_requests = request.json()
+        pull_requests = next_request.json()
         prs_page_html, prs_page_text = traverse_prs(pull_requests)
         pull_requests_body_html += prs_page_html
         pull_requests_body_text += prs_page_text
@@ -163,7 +163,7 @@ def handle_issues(request):
     while request.links.has_key('next'):
         request = requests.get(request.links['next']['url'],auth=('token',token))
         issues = request.json()
-        issues_page_html, issues_page_text = traverse_prs(issues)
+        issues_page_html, issues_page_text = traverse_issues(issues)
         issues_body_html += issues_page_html
         issues_body_text += issues_page_text
 
