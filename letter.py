@@ -23,8 +23,8 @@ def get_headers():
 
 def get_pull_request_headers():
     # Create the header of the pull request part of the message (a plain-text and an HTML version).
-    text_header = "\n## Below you find a list of recently merged features:\n\n"
-    html_header = "<br>Below you find a list of recently merged features:<br><br>\n"
+    text_header = "\n## Below you find a list of recently proposed or merged features:\n\n"
+    html_header = "<br>Below you find a list of recently proposed or merged features:<br><br>\n"
     return html_header,text_header
 
 def get_issue_headers():
@@ -88,15 +88,30 @@ def traverse_prs(issues):
             # Handle recently closed pull requests
             r = requests.get(issue['pull_request']['url'], auth=('token',token))
             pr = r.json()
+
+            create_time = datetime.datetime.strptime(issue['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+            merge_time = datetime.datetime.now() - datetime.timedelta(60)
             if pr['merged_at'] != None:
                 merge_time = datetime.datetime.strptime(pr['merged_at'], '%Y-%m-%dT%H:%M:%SZ')
-                # If merged within the last 14 days:
-                if (now - merge_time < datetime.timedelta(14)):
-                    html_pr = '<a href="' + pr['_links']['html']['href'] + '">#' + str(pr['number']) + '</a>: ' + pr['title'] + ' (' 
-                    html_pr += '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>)<br>\n'
-                    text_pr =  '#' + str(pr['number']) + ': ' + pr['title'] + ' (' + pr['user']['login'] + ') ' + pr['_links']['html']['href'] + '\n\n'
-                    pull_requests_body_html = pull_requests_body_html + html_pr
-                    pull_requests_body_text = pull_requests_body_text + text_pr
+            
+            # If created or merged within the last 14 days:
+            if (now - create_time < datetime.timedelta(14)) or (now - merge_time < datetime.timedelta(14)):
+                status_change=""
+                if now - create_time < datetime.timedelta(14):
+                    status_change += "proposed"
+                    if now - merge_time < datetime.timedelta(14):
+                        status_change += " and "
+                if now - merge_time < datetime.timedelta(14):
+                    status_change += "merged"
+                
+                html_pr = '<a href="' + pr['_links']['html']['href'] + '">#' + str(pr['number']) + '</a>: ' + pr['title'] + ' ('
+                html_pr += status_change + ' by ' 
+                html_pr += '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>)<br>\n'
+                text_pr =  '#' + str(pr['number']) + ': ' + pr['title'] + ' (' 
+                text_pr += status_change + ' by ' 
+                text_pr += pr['user']['login'] + ') ' + pr['_links']['html']['href'] + '\n\n'
+                pull_requests_body_html = pull_requests_body_html + html_pr
+                pull_requests_body_text = pull_requests_body_text + text_pr
     return pull_requests_body_html, pull_requests_body_text
 
 def traverse_issues(issues):
