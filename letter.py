@@ -96,20 +96,21 @@ def traverse_prs(issues):
             
             # If created or merged within the last 14 days:
             if (now - create_time < datetime.timedelta(14)) or (now - merge_time < datetime.timedelta(14)):
-                status_change=""
-                if now - create_time < datetime.timedelta(14):
-                    status_change += "proposed"
-                    if now - merge_time < datetime.timedelta(14):
-                        status_change += " and "
-                if now - merge_time < datetime.timedelta(14):
-                    status_change += "merged"
-                
                 html_pr = '<a href="' + pr['_links']['html']['href'] + '">#' + str(pr['number']) + '</a>: ' + pr['title'] + ' ('
-                html_pr += status_change + ' by ' 
-                html_pr += '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>)<br>\n'
+                html_pr += 'proposed by ' + '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>'
+
+                if now - merge_time < datetime.timedelta(14):
+                    html_pr += '; merged'
+ 
+                html_pr += ')<br>\n'
+
                 text_pr =  '#' + str(pr['number']) + ': ' + pr['title'] + ' (' 
-                text_pr += status_change + ' by ' 
-                text_pr += pr['user']['login'] + ') ' + pr['_links']['html']['href'] + '\n\n'
+                text_pr += 'proposed by ' + pr['user']['login'] 
+
+                if now - merge_time < datetime.timedelta(14):
+                    text_pr += '; merged'
+
+                text_pr +=  ') ' + pr['_links']['html']['href'] + '\n\n'
                 pull_requests_body_html = pull_requests_body_html + html_pr
                 pull_requests_body_text = pull_requests_body_text + text_pr
     return pull_requests_body_html, pull_requests_body_text
