@@ -9,6 +9,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.Utils import formatdate
 
+import sys
+from time import strftime
+
 def get_headers():
     # Create the header of the message (a plain-text and an HTML version).
     text_header = "Hello everyone!\n\nThis is the biweekly ASPECT newsletter #" + str(number) + ".\nIt automatically reports recently merged features and discussions about the ASPECT mantle convection code.\n\n"
@@ -184,6 +187,9 @@ def handle_issues(request):
         issues_body_text += issues_page_text
 
     return issues_body_html,issues_body_text
+
+if (int(strftime("%W")) % 2 != 1):
+    sys.exit()
 
 path = os.path.dirname(os.path.abspath(__file__))
 
