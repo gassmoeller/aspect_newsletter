@@ -15,13 +15,13 @@ from time import strftime
 
 def get_headers():
     # Create the header of the message (a plain-text and an HTML version).
-    text_header = "Hello everyone!\n\nThis is the deal.II newsletter #" + str(number) + ".\nIt automatically reports recently merged features and discussions about the deal.II finite element library.\n\n"
+    text_header = "Hello everyone!\n\nThis is deal.II newsletter #" + str(number) + ".\nIt automatically reports recently merged features and discussions about the deal.II finite element library.\n\n"
     html_header = """\
     <html>
       <head></head>
       <body>
         <p>Hello everyone!<br><br>
-           This is the deal.II newsletter #""" + str(number) + ".<br>It automatically reports recently merged features and discussions about the deal.II finite element library.<br>"
+           This is deal.II newsletter #""" + str(number) + ".<br>It automatically reports recently merged features and discussions about the deal.II finite element library.<br>"
     
     return html_header,text_header
 
@@ -40,7 +40,7 @@ def get_issue_headers():
 def get_footers():
     html_footer="""<br>A list of all major changes since the last release can be found at <a href="https://www.dealii.org/developer/doxygen/deal.II/changes_after_8_5_0.html">this website</a>.
     <br><br>Thanks for being part of the community!<br><br>
-    Let us know about questions, problems, bugs or just share your experience by writing to this <a href="mailto:dealii@groups.google.com">mailing list</a>, or by opening issues or pull requests on <a href="https://www.github.com/dealii/dealii">Github</a>.<br>
+    Let us know about questions, problems, bugs or just share your experience by writing to this <a href="mailto:dealii@googlegroups.com">mailing list</a>, or by opening issues or pull requests on <a href="https://www.github.com/dealii/dealii">Github</a>.<br>
     Additional information can be found at our <a href="https://www.dealii.org/">official website</a>.
         </p>
       </body>
@@ -48,15 +48,15 @@ def get_footers():
     """
     text_footer="""\nA list of all major changes since the last release can be found at https://www.dealii.org/developer/doxygen/deal.II/changes_after_8_5_0.html.
 \n\nThanks for being part of the community!\n\n
-Let us know about questions, problems, bugs or just share your experience by writing to dealii@groups.google.com, or by opening issues or pull requests at https://www.github.com/dealii/dealii.
+Let us know about questions, problems, bugs or just share your experience by writing to dealii@googlegroups.com, or by opening issues or pull requests at https://www.github.com/dealii/dealii.
 Additional information can be found at https://www.dealii.org/."""
     return html_footer,text_footer
 
 def send_mail(html_mail,text_mail):
     # Now compose message to send:
     me = '"Rene Gassmoeller" <rene.gassmoeller@mailbox.org>'
-    #you = "aspect-devel@geodynamics.org"
-    you = "r.gassmoeller@mailbox.org"
+    you = "dealii@googlegroups.com"
+    #you = "r.gassmoeller@mailbox.org"
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
@@ -223,7 +223,7 @@ update_date = datetime.datetime.strptime(last_date[:-1],'%Y-%m-%d %H:%M:%S')
 now = datetime.datetime.utcnow()
 report_timespan = now - update_date
 
-if report_timespan < datetime.timedelta(13.5):
+if report_timespan < datetime.timedelta(6.5):
     sys.exit()
 
 # Handle recently closed issues and pull requests
