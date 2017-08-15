@@ -15,13 +15,13 @@ from time import strftime
 
 def get_headers():
     # Create the header of the message (a plain-text and an HTML version).
-    text_header = "Hello everyone!\n\nThis is ASPECT newsletter #" + str(number) + ".\nIt automatically reports recently merged features and discussions about the ASPECT mantle convection code.\n\n"
+    text_header = "Hello everyone!\n\nThis is the deal.II newsletter #" + str(number) + ".\nIt automatically reports recently merged features and discussions about the deal.II finite element library.\n\n"
     html_header = """\
     <html>
       <head></head>
       <body>
         <p>Hello everyone!<br><br>
-           This is ASPECT newsletter #""" + str(number) + ".<br>It automatically reports recently merged features and discussions about the ASPECT mantle convection code.<br>"
+           This is the deal.II newsletter #""" + str(number) + ".<br>It automatically reports recently merged features and discussions about the deal.II finite element library.<br>"
     
     return html_header,text_header
 
@@ -38,29 +38,29 @@ def get_issue_headers():
     return html_header,text_header
 
 def get_footers():
-    html_footer="""<br>A list of all major changes since the last release can be found at <a href="https://aspect.dealii.org/doc/doxygen/changes_current.html">this website</a>.
+    html_footer="""<br>A list of all major changes since the last release can be found at <a href="https://www.dealii.org/developer/doxygen/deal.II/changes_after_8_5_0.html">this website</a>.
     <br><br>Thanks for being part of the community!<br><br>
-    Let us know about questions, problems, bugs or just share your experience by writing to this <a href="mailto:aspect-devel@geodynamics.org">mailing list</a>, or by opening issues or pull requests on <a href="https://www.github.com/geodynamics/aspect">Github</a>.<br>
-    Additional information can be found at our <a href="https://aspect.dealii.org/">official website</a>, and CIG's <a href="https://geodynamics.org/cig/software/aspect/">ASPECT website</a>.
+    Let us know about questions, problems, bugs or just share your experience by writing to this <a href="mailto:dealii@groups.google.com">mailing list</a>, or by opening issues or pull requests on <a href="https://www.github.com/dealii/dealii">Github</a>.<br>
+    Additional information can be found at our <a href="https://www.dealii.org/">official website</a>.
         </p>
       </body>
     </html>
     """
-    text_footer="""\nA list of all major changes since the last release can be found at https://aspect.dealii.org/doc/doxygen/changes_current.html.
+    text_footer="""\nA list of all major changes since the last release can be found at https://www.dealii.org/developer/doxygen/deal.II/changes_after_8_5_0.html.
 \n\nThanks for being part of the community!\n\n
-Let us know about questions, problems, bugs or just share your experience by writing to aspect-devel@geodynamics.org, or by opening issues or pull requests at https://www.github.com/geodynamics/aspect.
-Additional information can be found at https://aspect.dealii.org/, and https://geodynamics.org/cig/software/aspect/."""
+Let us know about questions, problems, bugs or just share your experience by writing to dealii@groups.google.com, or by opening issues or pull requests at https://www.github.com/dealii/dealii.
+Additional information can be found at https://www.dealii.org/."""
     return html_footer,text_footer
 
 def send_mail(html_mail,text_mail):
     # Now compose message to send:
     me = '"Rene Gassmoeller" <rene.gassmoeller@mailbox.org>'
-    you = "aspect-devel@geodynamics.org"
-    #you = "r.gassmoeller@mailbox.org"
+    #you = "aspect-devel@geodynamics.org"
+    you = "r.gassmoeller@mailbox.org"
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "ASPECT Newsletter #" + str(number)
+    msg['Subject'] = "deal.II Newsletter #" + str(number)
     msg['From'] = me
     msg['To'] = you
     msg['Date'] = formatdate()
@@ -230,7 +230,7 @@ if report_timespan < datetime.timedelta(13.5):
 # Note that all pull requests are also issues in the github API
 # That is why a single request returns all the information we need
 payload = {'state': 'all', 'since': update_date.isoformat()}
-request = requests.get('https://api.github.com/repos/geodynamics/aspect/issues', auth=('token',token), params=payload)
+request = requests.get('https://api.github.com/repos/dealii/dealii/issues', auth=('token',token), params=payload)
 pull_requests_body_html,pull_requests_body_text = handle_pull_requests(request)
 issues_body_html,issues_body_text = handle_issues(request)
 
