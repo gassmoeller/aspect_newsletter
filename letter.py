@@ -40,7 +40,7 @@ def get_issue_headers():
 def get_footers():
     html_footer="""<br>A list of all major changes since the last release can be found at <a href="https://aspect.geodynamics.org/doc/doxygen/changes_current.html">this website</a>.
     <br><br>Thanks for being part of the community!<br><br>
-    Let us know about questions, problems, bugs or just share your experience by writing to this <a href="mailto:aspect-devel@geodynamics.org">mailing list</a>, or by opening issues or pull requests on <a href="https://www.github.com/geodynamics/aspect">Github</a>.<br>
+    Let us know about questions, problems, bugs or just share your experience by visting our <a href="https://community.geodynamics.org/c/aspect">forum</a>, or by opening issues or pull requests on <a href="https://www.github.com/geodynamics/aspect">Github</a>.<br>
     Additional information can be found at our <a href="https://aspect.geodynamics.org/">official website</a>, and CIG's <a href="https://geodynamics.org/cig/software/aspect/">ASPECT website</a>.
         </p>
       </body>
@@ -48,19 +48,19 @@ def get_footers():
     """
     text_footer="""\nA list of all major changes since the last release can be found at https://aspect.geodynamics.org/doc/doxygen/changes_current.html.
 \n\nThanks for being part of the community!\n\n
-Let us know about questions, problems, bugs or just share your experience by writing to aspect-devel@geodynamics.org, or by opening issues or pull requests at https://www.github.com/geodynamics/aspect.
+Let us know about questions, problems, bugs or just share your experience by visiting https://community.geodynamics.org/c/aspect, or by opening issues or pull requests at https://www.github.com/geodynamics/aspect.
 Additional information can be found at https://aspect.geodynamics.org/, and https://geodynamics.org/cig/software/aspect/."""
     return html_footer,text_footer
 
 def send_mail(html_mail,text_mail):
     # Now compose message to send:
     me = '"Rene Gassmoeller" <rene.gassmoeller@mailbox.org>'
-    you = "aspect-devel@geodynamics.org"
+    you = "aspect@community.geodynamics.org"
     #you = "r.gassmoeller@mailbox.org"
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "ASPECT Newsletter #" + str(number)
+    msg['Subject'] = "ASPECT Newsletter"
     msg['From'] = me
     msg['To'] = you
     msg['Date'] = formatdate()
