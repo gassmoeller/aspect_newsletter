@@ -60,7 +60,7 @@ def send_mail(html_mail,text_mail):
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "ASPECT Newsletter"
+    msg['Subject'] = "ASPECT Newsletter #" + str(number)
     msg['From'] = me
     msg['To'] = you
     msg['Date'] = formatdate()
