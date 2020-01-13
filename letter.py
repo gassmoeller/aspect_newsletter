@@ -38,7 +38,7 @@ def get_issue_headers():
     return html_header,text_header
 
 def get_footers():
-    html_footer="""<br>A list of all major changes since the last release can be found at <a href="https://www.dealii.org/developer/doxygen/deal.II/changes_after_8_5_0.html">this website</a>.
+    html_footer="""<br>A list of all major changes since the last release can be found at <a href="https://www.dealii.org/developer/doxygen/deal.II/recent_changes.html">this website</a>.
     <br><br>Thanks for being part of the community!<br><br>
     Let us know about questions, problems, bugs or just share your experience by writing to this <a href="mailto:dealii@googlegroups.com">mailing list</a>, or by opening issues or pull requests on <a href="https://www.github.com/dealii/dealii">Github</a>.<br>
     Additional information can be found at our <a href="https://www.dealii.org/">official website</a>.
@@ -46,7 +46,7 @@ def get_footers():
       </body>
     </html>
     """
-    text_footer="""\nA list of all major changes since the last release can be found at https://www.dealii.org/developer/doxygen/deal.II/changes_after_8_5_0.html.
+    text_footer="""\nA list of all major changes since the last release can be found at https://www.dealii.org/developer/doxygen/deal.II/recent_changes.html.
 \n\nThanks for being part of the community!\n\n
 Let us know about questions, problems, bugs or just share your experience by writing to dealii@googlegroups.com, or by opening issues or pull requests at https://www.github.com/dealii/dealii.
 Additional information can be found at https://www.dealii.org/."""
