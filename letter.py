@@ -8,7 +8,7 @@ from unidecode import unidecode
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.Utils import formatdate
+from email.utils import formatdate
 
 import sys
 from time import strftime
@@ -89,14 +89,14 @@ def traverse_prs(issues):
     pull_requests_body_text = ""
     
     for issue in issues:
-        if issue.has_key('pull_request'):
+        if 'pull_request' in issue:
             # Handle recently closed pull requests
             r = requests.get(issue['pull_request']['url'], auth=('token',token))
             pr = r.json()
 
             create_time = datetime.datetime.strptime(issue['created_at'], '%Y-%m-%dT%H:%M:%SZ')
             merge_time = now - 2 * report_timespan
-            if pr.has_key('merged_at') and pr['merged_at'] != None:
+            if 'merged_at' in pr and pr['merged_at'] != None:
                 merge_time = datetime.datetime.strptime(pr['merged_at'], '%Y-%m-%dT%H:%M:%SZ')
             
             # If created or merged within the last 14 days:
@@ -125,7 +125,7 @@ def traverse_issues(issues):
     issues_body_text = ""
     
     for issue in issues:
-        if not issue.has_key('pull_request'):
+        if 'pull_request' not in issue:
             create_time = datetime.datetime.strptime(issue['created_at'], '%Y-%m-%dT%H:%M:%SZ')
             closed_time = now - 2 * report_timespan
             if issue['closed_at'] != None:
@@ -160,7 +160,7 @@ def handle_pull_requests(request):
     # This handles older pull requests that do not show up on the first page of
     # closed pull requests
     next_request = request
-    while next_request.links.has_key('next'):
+    while 'next' in next_request.links:
         next_request = requests.get(next_request.links['next']['url'],auth=('token',token))
         pull_requests = next_request.json()
         prs_page_html, prs_page_text = traverse_prs(pull_requests)
@@ -182,7 +182,7 @@ def handle_issues(request):
     # This handles older pull requests that do not show up on the first page of
     # closed pull requests
     next_request = request
-    while next_request.links.has_key('next'):
+    while 'next' in next_request.links:
         next_request = requests.get(next_request.links['next']['url'],auth=('token',token))
         issues = next_request.json()
         issues_page_html, issues_page_text = traverse_issues(issues)
