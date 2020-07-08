@@ -21,7 +21,7 @@ def get_headers():
       <head></head>
       <body>
         <p>Hello everyone!<br><br>
-           This is ASPECT newsletter #""" + str(number) + ".<br>It automatically reports recently merged features and discussions about the ASPECT mantle convection code.<br>"
+This is ASPECT newsletter #""" + str(number) + ".<br>It automatically reports recently merged features and discussions about the ASPECT mantle convection code.<br>"
     
     return html_header,text_header
 
@@ -40,8 +40,8 @@ def get_issue_headers():
 def get_footers():
     html_footer="""<br>A list of all major changes since the last release can be found at <a href="https://aspect.geodynamics.org/doc/doxygen/changes_current.html">this website</a>.
     <br><br>Thanks for being part of the community!<br><br>
-    Let us know about questions, problems, bugs or just share your experience by visting our <a href="https://community.geodynamics.org/c/aspect">forum</a>, or by opening issues or pull requests on <a href="https://www.github.com/geodynamics/aspect">Github</a>.<br>
-    Additional information can be found at our <a href="https://aspect.geodynamics.org/">official website</a>, and CIG's <a href="https://geodynamics.org/cig/software/aspect/">ASPECT website</a>.
+Let us know about questions, problems, bugs or just share your experience by visting our <a href="https://community.geodynamics.org/c/aspect">forum</a>, or by opening issues or pull requests on <a href="https://www.github.com/geodynamics/aspect">Github</a>.<br>
+Additional information can be found at our <a href="https://aspect.geodynamics.org/">official website</a>, and CIG's <a href="https://geodynamics.org/cig/software/aspect/">ASPECT website</a>.
         </p>
       </body>
     </html>
@@ -105,7 +105,7 @@ def traverse_prs(issues):
                 html_pr += 'proposed by ' + '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>'
 
                 if now - merge_time < report_timespan:
-                    html_pr += '; merged'
+                    html_pr += '; reviewed and merged by ' + '<a href="' + pr['merged_by']['html_url'] + '">' + pr['merged_by']['login'] + '</a>'
  
                 html_pr += ')<br>\n'
 
@@ -113,7 +113,7 @@ def traverse_prs(issues):
                 text_pr += 'proposed by ' + pr['user']['login'] 
 
                 if now - merge_time < report_timespan:
-                    text_pr += '; merged'
+                    text_pr += '; reviewed and merged by ' + pr['merged_by']['login']
 
                 text_pr +=  ') ' + pr['_links']['html']['href'] + '\n\n'
                 pull_requests_body_html = pull_requests_body_html + html_pr
