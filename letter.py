@@ -102,18 +102,18 @@ def traverse_prs(issues):
             # If created or merged within the last 14 days:
             if (now - create_time < report_timespan) or (now - merge_time < report_timespan):
                 html_pr = '<a href="' + pr['_links']['html']['href'] + '">#' + str(pr['number']) + '</a>: ' + unidecode(pr['title']) + ' ('
-                html_pr += 'proposed by ' + '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>'
+                html_pr += 'implemented by ' + '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>'
 
                 if now - merge_time < report_timespan:
-                    html_pr += '; reviewed and merged by ' + '<a href="' + pr['merged_by']['html_url'] + '">' + pr['merged_by']['login'] + '</a>'
+                    html_pr += '; reviewed by ' + '<a href="' + pr['merged_by']['html_url'] + '">' + pr['merged_by']['login'] + '</a>'
  
                 html_pr += ')<br>\n'
 
                 text_pr =  '#' + str(pr['number']) + ': ' + unidecode(pr['title']) + ' (' 
-                text_pr += 'proposed by ' + pr['user']['login'] 
+                text_pr += 'implemented by ' + pr['user']['login'] 
 
                 if now - merge_time < report_timespan:
-                    text_pr += '; reviewed and merged by ' + pr['merged_by']['login']
+                    text_pr += '; reviewed by ' + pr['merged_by']['login']
 
                 text_pr +=  ') ' + pr['_links']['html']['href'] + '\n\n'
                 pull_requests_body_html = pull_requests_body_html + html_pr
