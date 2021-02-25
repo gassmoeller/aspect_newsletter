@@ -2,7 +2,10 @@
 
 This is a small Python script that polls the Github API for issues and pull
 requests of a public repository and sends an email to a defined address (e.g. a
-mailing list) every two weeks. It relies on some configuration files and some
+mailing list) every two weeks. It uses the `requests` library for https
+requests all other packages should be available with most python installations.
+
+The script relies on some configuration files and some
 configuration in the file itself.
 
 Usage:

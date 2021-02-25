@@ -56,7 +56,6 @@ def send_mail(html_mail,text_mail):
     # Now compose message to send:
     me = '"Rene Gassmoeller" <rene.gassmoeller@mailbox.org>'
     you = "aspect@community.geodynamics.org"
-    #you = "r.gassmoeller@mailbox.org"
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
