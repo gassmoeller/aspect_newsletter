@@ -56,12 +56,14 @@ def send_mail(html_mail,text_mail):
     # Now compose message to send:
     me = '"Rene Gassmoeller" <rene.gassmoeller@mailbox.org>'
     you = "aspect@community.geodynamics.org"
+    backup = "rene.gassmoeller@mailbox.org"
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
     msg['Subject'] = "ASPECT Newsletter #" + str(number)
     msg['From'] = me
     msg['To'] = you
+    msg['Bcc'] = backup
     msg['Date'] = formatdate()
     
     # Record the MIME types of both parts - text/plain and text/html.
@@ -80,7 +82,7 @@ def send_mail(html_mail,text_mail):
     
     # sendmail function takes 3 arguments: sender's address, recipient's address
     # and message to send - here it is sent as one string.
-    s.sendmail(me, you, msg.as_string())
+    s.sendmail(me, [you,backup], msg.as_string())
     s.quit()
     
 def traverse_prs(issues):
