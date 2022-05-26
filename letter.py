@@ -4,6 +4,7 @@ import os
 import requests
 import datetime
 import smtplib
+import html
 from unidecode import unidecode
 
 from email.mime.multipart import MIMEMultipart
@@ -102,7 +103,7 @@ def traverse_prs(issues):
             
             # If created or merged within the last 14 days:
             if (now - create_time < report_timespan) or (now - merge_time < report_timespan):
-                html_pr = '<a href="' + pr['_links']['html']['href'] + '">#' + str(pr['number']) + '</a>: ' + unidecode(pr['title']) + ' ('
+                html_pr = '<a href="' + pr['_links']['html']['href'] + '">#' + str(pr['number']) + '</a>: ' + html.escape(unidecode(pr['title'])) + ' ('
                 html_pr += 'implemented by ' + '<a href="' + pr['user']['html_url'] + '">' + pr['user']['login'] + '</a>'
 
                 if now - merge_time < report_timespan:
@@ -142,7 +143,7 @@ def traverse_issues(issues):
                 if now - closed_time < report_timespan:
                     status_change += "closed"
                 status_change += ")"
-                html_pr = '<a href="' + issue['html_url'] + '">#' + str(issue['number']) + '</a> ' + unidecode(issue['title']) + ' ' + status_change + '<br>\n'
+                html_pr = '<a href="' + issue['html_url'] + '">#' + str(issue['number']) + '</a> ' + html.escape(unidecode(issue['title'])) + ' ' + status_change + '<br>\n'
                 text_pr =  '#' + str(issue['number']) + ': ' + unidecode(issue['title']) + ' ' + status_change + ' ' + issue['html_url'] + '\n\n'
                 issues_body_html = issues_body_html + html_pr
                 issues_body_text = issues_body_text + text_pr
